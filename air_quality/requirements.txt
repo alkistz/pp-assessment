@@ -3,3 +3,4 @@ ipykernel
 requests
 sqlalchemy
 ndjson
+pandas-profiling
