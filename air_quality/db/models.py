@@ -1,11 +1,7 @@
-from sqlalchemy.ext.declarative import declarative_base
 from enum import Enum, unique
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column
 from sqlalchemy.sql.sqltypes import Integer, String
-
-
-
 
 
 @unique

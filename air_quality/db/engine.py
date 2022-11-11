@@ -8,6 +8,10 @@ engine: Engine = None
 DBSession = sessionmaker()
 
 def init_db(file: str):
-    engine = create_engine(file)
+    engine = create_engine(file, echo=True)
     Base.metadata.bind = engine
+    Base.metadata.create_all(engine)
     DBSession.bind = engine
+    
+
+    
