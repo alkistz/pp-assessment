@@ -5,7 +5,7 @@ from sqlalchemy.sql.sqltypes import Integer, String
 
 
 @unique
-class AirQualityIndex(Enum):
+class AirQualityParameter(Enum):
     PM25: str = 'pm25'
     PM10: str = 'pm10'
     O3: str = 'o3'
@@ -14,7 +14,7 @@ class AirQualityIndex(Enum):
     
     @classmethod
     def to_list(cls):
-        return [index.value  for index in cls.__members__.values()]
+        return [parameter.value  for parameter in cls.__members__.values()]
     
     
 
@@ -24,6 +24,6 @@ Base = declarative_base()
 class DBCountry(Base):
     __tablename__= "country"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(250), nullable=False)
-    code = Column(String(250), nullable=False)
+    name = Column(String(250), nullable=False, unique=True)
+    code = Column(String(250), nullable=False, unique=True)
     
