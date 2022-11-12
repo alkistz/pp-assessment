@@ -1,7 +1,7 @@
 from enum import Enum, unique
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column
-from sqlalchemy.sql.sqltypes import Integer, String
+from sqlalchemy.sql.sqltypes import Integer, String, Float, DateTime
 
 
 @unique
@@ -26,4 +26,15 @@ class DBCountry(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(250), nullable=False, unique=True)
     code = Column(String(250), nullable=False, unique=True)
+    
+    
+class DBProcessedData(Base):
+    __tablename__= "processed_data"
+    id = id = Column(Integer, primary_key=True, autoincrement=True)
+    parameter = Column(String(10), nullable=False)
+    city = Column(String(250), nullable=False)
+    date_utc = Column(DateTime)
+    value = Column(Float)
+    aqi_value = Column(Float)
+    category = Column(String(250))
     
