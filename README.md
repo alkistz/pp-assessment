@@ -17,8 +17,7 @@ Hello to you, dear anonymous reviewer! I wrote a short documentation to help you
 
 ## Why are there multiple folders?
 
-I understand that the folder structure might, at first sight, seems unnecessarily complex. The reason why I structured my code like this is to have a layered approach to dealing with the data and handle the interactions between the data and the database. I originally wanted to show off by serving the data through an API but after second thought, this approach would be a bit out of scope. However, should we want to build an API, the only thing left is a router layer. Happy to discuss this part in more detail, should the opportunity be given.
-
+I understand that the folder structure might, at first sight, seem unnecessarily complex. The reason why I structured my code like this is to have a layered approach to dealing with the data and handle the interactions between the data and the database. I originally wanted to show off by serving the data through an API but after second thought, this approach would be a bit out of scope. However, should we want to build an API, the only thing left is a router layer. Happy to discuss this part in more detail, should the opportunity be given.
 
 ## Why are there only two indicators?
 
@@ -26,22 +25,22 @@ As you will see, the end results contain data for only two indicators. This is b
 
 See the next section for more details on my assumptions.
 
-
 ## Assumptions & Notes
 
 * I can only use the data where the value of `averagingPeriod_value` is `24`  if I want to have the 24 hour rolling average. I could have computed it with the other averaging types data as well but when I filter the countries and indices we are interested in, I only have data for 1 day (<24 hours) making it imposible for this specific use-case to calculate the 24 hours rolling average (unless I missed something).
 * I am assuming that all negative observations are invalid for simplicity. I normally would have digged into the API docs to figure it out or asked someone who had treated this kind of data before.
-* I am assuming that we want all values expressed as μg/m3. I googled a formula to convert but not sure if this is the correct one. (PS: in the end, I didn't have to use it because after filtering I only have μg/m3 units)
-
+* I am assuming that we want all values expressed as μg/m3. I googled a formula to convert but not sure if this is the correct one. (PS: in the end, I didn't have to use it because after filtering I only have μg/m3 units).
+* I am assuming that we want one observation per city so for cities with more than one location, I take the average.
 
 ## Potential extentions and improvements
 
-* Develop a better structure for the DB optimised for specific use cases. For example, organising the data using a snowflake schema with several dimention tables to capture metadata details and specific aggregated views optimised for analytics and reporting
+* Develop a better structure for the DB optimised for specific use cases. For example, organising the data using a snowflake schema with several dimention tables to capture metadata details and specific aggregated views optimised for analytics and reporting.
 * Serve the data through an API (FAST API is very good for this kind of things)
 * Add more data cleaning and validation based on business and logical rules.
 * Add another layer of abstraction to decouple the DB layer from the operations layer making it easy to switch between different types of databases. This could be achieved for example with the use of protocol classes in `Python`.
 * Refactor the code focusing on design principles so it is for example easy to maintain, easy to change and easy to understand.
-
+* Make a more robust pipeline that is capable of handling bigger datasets and add a scheduler. This could be done for example with technologies like Airflow and PySpark.
+* Connect the pipeline to the API.
 
 ## Q&A
 
@@ -49,11 +48,9 @@ See the next section for more details on my assumptions.
 
 This was just personal preference, it is the language that I am most comfortable with at this moment.
 
-
 **Why did you go for an SQL DB?**
 
 No specific reason since I am not sure what kind of use this DB will serve. I was aware of SQLAlchemy in Python but I had never used it before so I thought it would be an interesting opportunity to learn it. At my current job we use `MongoDB` through `Mongonegine` because it is easier for us to use it with ElasticSearch.
-
 
 **Why sqlite?**
 
